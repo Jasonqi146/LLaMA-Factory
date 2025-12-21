@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -x
+nvidia-smi && sudo fuser -kv /dev/nvidia*
 
 MODEL_PATH=Qwen/Qwen3-8B
 
@@ -11,16 +12,16 @@ llamafactory-cli train \
     --stage sft \
     --do_train \
     --finetuning_type full \
-    --dataset tb_expanded_train \
+    --dataset tb_plus_12_20_train \
     --template qwen3 \
-    --cutoff_len 20000 \
+    --cutoff_len 26000 \
     --max_samples 10000 \
     --overwrite_cache \
     --preprocessing_num_workers 16 \
     --dataloader_num_workers 4 \
-    --output_dir $HOME/research_nfs/jasonqi_weights/llama_factory/qwen3-8b/full/sft \
-    --logging_steps 10 \
-    --save_steps 100 \
+    --output_dir $HOME/research_nfs/jasonqi_weights/llama_factory/qwen3-8b-tb-plus-12-20/full/sft \
+    --logging_steps 1 \
+    --save_steps 20 \
     --plot_loss \
     --overwrite_output_dir \
     --save_only_model true \
@@ -28,7 +29,7 @@ llamafactory-cli train \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 8 \
     --learning_rate 1.0e-4 \
-    --num_train_epochs 5.0 \
+    --num_train_epochs 15.0 \
     --lr_scheduler_type cosine \
     --warmup_ratio 0.1 \
     --bf16 \
