@@ -1,6 +1,20 @@
 {
-  "tb_plus_12_20_train": {
-    "file_name": "tb_plus_12_20_train.jsonl",
+  "tb_plus_12_19_claude": {
+    "file_name": "harbor-tb-plus-tasks-12-19-success-claude-formated.jsonl",
+    "formatting": "sharegpt",
+    "columns": {
+      "messages": "messages"
+    },
+    "tags": {
+      "role_tag": "role",
+      "content_tag": "content",
+      "user_tag": "user",
+      "assistant_tag": "assistant",
+      "system_tag": "system"
+    }
+  },
+  "tb_plus_12_19_gemini": {
+    "file_name": "harbor-tb-plus-tasks-12-19-success-gemini-formated.jsonl",
     "formatting": "sharegpt",
     "columns": {
       "messages": "messages"

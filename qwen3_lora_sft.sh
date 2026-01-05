@@ -1,8 +1,9 @@
 #!/bin/bash
 
 set -x
+nvidia-smi && sudo fuser -kv /dev/nvidia*
 
-MODEL_PATH=Qwen/Qwen3-8B
+MODEL_PATH=Qwen/Qwen3-32B
 
 llamafactory-cli train \
     --model_name_or_path ${MODEL_PATH} \
@@ -10,27 +11,28 @@ llamafactory-cli train \
     --stage sft \
     --do_train \
     --finetuning_type lora \
-    --lora_rank 8 \
+    --lora_rank 16 \
     --lora_target all \
-    --dataset tb_sonnet_4_5_sucess_messages \
+    --dataset tb_plus_12_19_claude,tb_plus_12_19_gemini \
     --template qwen3 \
-    --cutoff_len 16384 \
-    --max_samples 1000 \
+    --cutoff_len 20000 \
+    --max_samples 10000 \
     --overwrite_cache \
     --preprocessing_num_workers 16 \
     --dataloader_num_workers 4 \
-    --output_dir saves/qwen3-8b/lora/sft \
-    --logging_steps 10 \
-    --save_steps 500 \
+    --output_dir $HOME/research_nfs/jasonqi_weights/llama_factory/qwen3-32b-tb-plus-claude-gemini-12-29/lora/sft \
+    --logging_steps 1 \
+    --save_steps 20 \
     --plot_loss \
     --overwrite_output_dir \
     --save_only_model false \
-    --report_to none \
+    --report_to wandb \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 8 \
-    --learning_rate 1e-4 \
-    --num_train_epochs 3.0 \
+    --learning_rate 0.5e-5 \
+    --num_train_epochs 15.0 \
     --lr_scheduler_type cosine \
     --warmup_ratio 0.1 \
     --bf16 \
-    --ddp_timeout 180000000
+    --ddp_timeout 180000000 \
+    --deepspeed examples/deepspeed/ds_z3_offload_config.json
