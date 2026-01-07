@@ -13,22 +13,22 @@ llamafactory-cli train \
     --finetuning_type full \
     --dataset tb_plus_12_19_claude,tb_plus_12_19_gemini \
     --template qwen3 \
-    --cutoff_len 20000 \
+    --cutoff_len 24000 \
     --max_samples 10000 \
     --overwrite_cache \
     --preprocessing_num_workers 16 \
     --dataloader_num_workers 4 \
-    --output_dir $HOME/research_nfs/jasonqi_weights/llama_factory/qwen3-8b-tb-plus-claude-gemini-12-29/full/sft \
+    --output_dir $HOME/research_nfs/jasonqi_weights/llama_factory/qwen3-8b-tb-plus-claude-gemini-1-7/full/sft \
     --logging_steps 1 \
-    --save_steps 20 \
+    --save_steps 40 \
     --plot_loss \
     --overwrite_output_dir \
-    --save_only_model false \
+    --save_only_model true \
     --report_to wandb \
     --per_device_train_batch_size 1 \
-    --gradient_accumulation_steps 8 \
-    --learning_rate 0.5e-5 \
-    --num_train_epochs 15.0 \
+    --gradient_accumulation_steps 32 \
+    --learning_rate 1e-4 \
+    --num_train_epochs 20.0 \
     --lr_scheduler_type cosine \
     --warmup_ratio 0.1 \
     --bf16 \
